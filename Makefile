@@ -7,6 +7,7 @@ OBJST=$(OBJ)/.stamp
 DEFAULT: all
 
 PATCHES_ocamlnet-2.2.9 := ocamlnet
+CONFIGURE_ocamlnet-2.2.9 := -with-nethttpd
 
 $(OBJST):
 	mkdir -p $(OBJ)
@@ -19,11 +20,11 @@ $(OBJ)/%.tgz: dist/%.tar.gz $(OBJST)
 	@touch $@
 
 $(OBJ)/%.build: $(OBJ)/%.tgz
-	D=$(OBJ)/$*; cd $$D; if [ -x ./configure ]; then ./configure; fi; make all
+	D=$(OBJ)/$*; cd $$D; if [ -x ./configure ]; then ./configure $(CONFIGURE_$*); fi; make all
 	@touch $@
 
 $(OBJ)/%.install: $(OBJ)/%.build
-	D=$(OBJ)/$*; cd $$D; make install && touch $@
+	D=$(OBJ)/$*; cd $$D; make uninstall; make install && touch $@
 	
 all: $(DISTS:%=$(OBJ)/%.build)
 	@ :
