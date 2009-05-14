@@ -15,6 +15,7 @@ DEPS_json-static-0.9.6 := json-wheel-1.0.6
 DEPS_ocaml-sql-orm-0.1 := ocaml-sqlite3-1.4.0
 
 TARG_ocamlnet-2.2.9 := all opt
+TARG_json-wheel-1.0.6 := all
 
 $(OBJST):
 	mkdir -p $(OBJ)
