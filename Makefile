@@ -1,4 +1,5 @@
-DISTS=ocaml-sqlite3-1.4.0 ANSITerminal-0.3
+DISTS+=json-wheel-1.0.6 json-static-0.9.6
+DISTS+=ocaml-sqlite3-1.4.0 ANSITerminal-0.3
 DISTS+=ocamlnet-2.2.9
 
 OBJ=$(PWD)/obj
