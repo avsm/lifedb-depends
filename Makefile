@@ -1,9 +1,10 @@
 DISTS+=json-wheel-1.0.6 json-static-0.9.6
 DISTS+=ocaml-sqlite3-1.4.0 ANSITerminal-0.3
 DISTS+=ocamlnet-2.2.9
+DISTS+=ocaml-sql-orm-0.1
 
-OBJ=$(PWD)/obj
-OBJST=$(OBJ)/.stamp
+OBJ := $(PWD)/obj
+OBJST := $(OBJ)/.stamp
 
 DEFAULT: all
 
@@ -11,6 +12,7 @@ PATCHES_ocamlnet-2.2.9 := ocamlnet
 CONFIGURE_ocamlnet-2.2.9 := -with-nethttpd
 
 DEPS_json-static-0.9.6 := json-wheel-1.0.6
+DEPS_ocaml-sql-orm-0.1 := ocaml-sqlite3-1.4.0
 
 $(OBJST):
 	mkdir -p $(OBJ)
@@ -28,7 +30,7 @@ $(OBJ)/%.build: $(OBJ)/%.tgz
 	@touch $@
 
 $(OBJ)/%.install: $(OBJ)/%.build
-	D=$(OBJ)/$*; cd $$D; make uninstall; make install && touch $@
+	D=$(OBJ)/$*; cd $$D; sudo make uninstall; sudo make install && touch $@
 	
 all: $(DISTS:%=$(OBJ)/%.build)
 	@ :
