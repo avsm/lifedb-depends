@@ -1,0 +1,14 @@
+--- src/nethttpd-for-netcgi1/nethttpd_services.ml.orig	2009-04-21 20:11:42.000000000 +0100
++++ src/nethttpd-for-netcgi1/nethttpd_services.ml	2009-04-21 20:12:34.000000000 +0100
+@@ -728,9 +728,9 @@
+       | Not_found ->
+ 	  `Std_response(`Not_found, None,(Some "Nethttpd: Can neither translate to regular file nor to directory") )
+       | Unix.Unix_error(Unix.ENOENT,_,_) ->
+-	  `Std_response(`Not_found, None, (Some "Nethttpd: No such file or directory"))
++	  `Std_response(`Not_found, None, (Some ("Nethttpd: No such file or directory: " ^ env#cgi_script_name)))
+       | Unix.Unix_error((Unix.EACCES | Unix.EPERM),_,_) ->
+-	  `Std_response(`Forbidden, None, (Some "Nethttpd: File access denied"))
++	  `Std_response(`Forbidden, None, (Some ("Nethttpd: File access denied: " ^ env#cgi_script_name)))
+       | Unix.Unix_error(e,_,_) ->
+ 	  `Std_response(`Internal_server_error, None, (Some ("Nethttpd: Unix error: " ^ Unix.error_message e)))
+       | Standard_response(status,hdr_opt,errmsg_opt) ->

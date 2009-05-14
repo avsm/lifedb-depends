@@ -1,9 +1,12 @@
 DISTS=ocaml-sqlite3-1.4.0 ANSITerminal-0.3
+DISTS+=ocamlnet-2.2.9
 
 OBJ=$(PWD)/obj
 OBJST=$(OBJ)/.stamp
 
 DEFAULT: all
+
+PATCHES_ocamlnet-2.2.9 := ocamlnet
 
 $(OBJST):
 	mkdir -p $(OBJ)
@@ -11,6 +14,8 @@ $(OBJST):
 
 $(OBJ)/%.tgz: dist/%.tar.gz $(OBJST)
 	tar -C $(OBJ) -zxf $<
+	P=$(PATCHES_$*); if [ "$$P" != "" ]; then \
+	  cd $(OBJ)/$*; for i in $(PWD)/patches/$$P/patch-*; do patch -p0 < $$i; done; fi
 	@touch $@
 
 $(OBJ)/%.build: $(OBJ)/%.tgz
