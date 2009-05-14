@@ -14,6 +14,8 @@ CONFIGURE_ocamlnet-2.2.9 := -with-nethttpd
 DEPS_json-static-0.9.6 := json-wheel-1.0.6
 DEPS_ocaml-sql-orm-0.1 := ocaml-sqlite3-1.4.0
 
+TARG_ocamlnet-2.2.9 := all opt
+
 $(OBJST):
 	mkdir -p $(OBJ)
 	@touch $@
@@ -26,7 +28,7 @@ $(OBJ)/%.tgz: dist/%.tar.gz $(OBJST)
 
 $(OBJ)/%.build: $(OBJ)/%.tgz
 	if [ "$(DEPS_$*)" != "" ]; then $(MAKE) $(OBJ)/$(DEPS_$*).install; fi
-	D=$(OBJ)/$*; cd $$D; if [ -x ./configure ]; then ./configure $(CONFIGURE_$*); fi; make all
+	D=$(OBJ)/$*; cd $$D; if [ -x ./configure ]; then ./configure $(CONFIGURE_$*); fi; make $(TARG_$*)
 	@touch $@
 
 $(OBJ)/%.install: $(OBJ)/%.build
