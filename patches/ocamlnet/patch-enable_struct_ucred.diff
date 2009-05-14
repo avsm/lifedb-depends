@@ -1,0 +1,13 @@
+diff -urNad ocamlnet~/src/rpc-auth-local/rpclocal.c ocamlnet/src/rpc-auth-local/rpclocal.c
+--- src/rpc-auth-local/rpclocal.c	2009-02-26 19:03:10.000000000 +0100
++++ src/rpc-auth-local/rpclocal.c	2009-02-26 19:04:42.267606017 +0100
+@@ -3,6 +3,8 @@
+  *
+  */
+ 
++#define _GNU_SOURCE 1
++
+ #include "caml/mlvalues.h"
+ #include "caml/alloc.h"
+ #include "caml/memory.h"
+
