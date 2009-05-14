@@ -17,7 +17,13 @@ $(OBJ)/%.build: $(OBJ)/%.tgz
 	D=$(OBJ)/$*; cd $$D; if [ -x ./configure ]; then ./configure; fi; make all
 	@touch $@
 
+$(OBJ)/%.install: $(OBJ)/%.build
+	D=$(OBJ)/$*; cd $$D; make install && touch $@
+	
 all: $(DISTS:%=$(OBJ)/%.build)
+	@ :
+
+install: $(DISTS:%=$(OBJ)/%.install)
 	@ :
 
 x-%:
